@@ -26,7 +26,13 @@ export default {
 
 <style lang="scss" scoped>
 .product-card {
+  display: inline-block;
   width: 300px;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    margin: 0 10px;
+  }
 }
 .product-card--mb {
   margin-bottom: 20px;

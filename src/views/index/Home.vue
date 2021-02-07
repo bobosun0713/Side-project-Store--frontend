@@ -64,21 +64,42 @@ export default {
   &-banner {
     width: 940px;
     height: 496px;
-    margin: 0 auto;
+    margin: 0 auto 240px;
     background: url('../../assets/image/home/home-banner.jpg') no-repeat center
       center;
     background-size: cover;
-    margin-bottom: 240px;
+
+    transition: all 0.5s;
+
+    // ====== RWD  ======
+    @include RWD_1200 {
+      width: 100%;
+    }
+    @include RWD_768 {
+      margin: 0 auto 295px;
+    }
+    @include RWD_576 {
+      height: 280px;
+      margin: 0 auto 305px;
+    }
   }
 
   // slogan
   &-slogan {
     margin: 0 auto 105px;
-    // margin-bottom: 105px;
     background: url('../../assets/image/home/home-slogan.svg') no-repeat center
       center;
     width: 90px;
     height: 330px;
+
+    // ====== RWD  ======
+    @include RWD_768 {
+      background: url('../../assets/image/home/home-slogan-rwd.svg') no-repeat
+        center center;
+      width: 225px;
+      height: 60px;
+      margin: 0 auto 30px;
+    }
   }
 
   // products
@@ -87,6 +108,16 @@ export default {
     margin: 0 auto 60px;
     display: flex;
     justify-content: space-between;
+
+    // ====== RWD  ======
+    @include RWD_991 {
+      margin: 0 0 60px;
+      padding: 0 0 20px;
+      overflow-x: scroll;
+      white-space: nowrap;
+      display: block;
+      width: 100%;
+    }
   }
 }
 
@@ -95,13 +126,28 @@ export default {
   display: flex;
   width: 780px;
   margin: 0 auto;
-
   transform: translateY(400px);
 
+  transition: all 0.5s;
+
+  // ====== RWD  ======
+  @include RWD_1200 {
+    width: 100%;
+  }
+  @include RWD_576 {
+    transform: translateY(280px);
+    height: 180px;
+  }
+
   &__item {
-    width: 260px;
+    flex: 1;
     height: 260px;
     position: relative;
+
+    // ====== RWD  ======
+    @include RWD_576 {
+      height: 180px;
+    }
 
     &:not(:first-child) {
       border-left: 1px solid white;

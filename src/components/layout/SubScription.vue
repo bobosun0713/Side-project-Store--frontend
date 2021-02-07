@@ -37,10 +37,17 @@ export default {
   &__container {
     width: calc(1024px - 200px);
     margin: 0 auto;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    // ====== RWD  ======
+    @include RWD_1200 {
+      width: 80%;
+    }
+    @include RWD_768 {
+      flex-direction: column;
+    }
   }
 }
 
@@ -48,6 +55,12 @@ export default {
 .subscription__info {
   display: flex;
   align-items: center;
+
+  // ====== RWD  ======
+  @include RWD_768 {
+    margin-bottom: 30px;
+  }
+
   &-img {
     width: 40px;
     height: 40px;
@@ -79,6 +92,12 @@ export default {
     height: 55px;
     padding: 16px 0 16px 50px;
     background-color: map-get($theme-colors, light-green);
+    transition: all 0.5s;
+
+    // ====== RWD  ======
+    @include RWD_576 {
+      width: 250px;
+    }
   }
   &-button {
     border: 0;

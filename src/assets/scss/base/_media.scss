@@ -1,15 +1,25 @@
-@mixin pc {
+@mixin RWD_1200 {
     @media (max-width: 1200px) {
         @content;
     }
 }
-@mixin pad {
+@mixin RWD_991 {
+    @media (max-width: 991px) {
+        @content;
+    }
+}
+@mixin RWD_768 {
     @media (max-width: 768px) {
         @content;
     }
 }
-@mixin mobile {
-    @media (max-width: 375px) {
+@mixin RWD_676 {
+    @media (max-width: 676px) {
+        @content;
+    }
+}
+@mixin RWD_576 {
+    @media (max-width: 576px) {
         @content;
     }
 }
