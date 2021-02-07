@@ -1,7 +1,7 @@
 module.exports = {
   publicPath:
     process.env.NODE_ENV === 'production'
-      ? '/Side-Project__Backend-firebase/'
+      ? '/Side-project-Store--frontend/'
       : '/',
   css: {
     loaderOptions: {

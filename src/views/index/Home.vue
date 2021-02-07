@@ -6,7 +6,7 @@
         <li class="banner__group__item">
           <img
             class="banner__group__item-img"
-            src="../../assets/image/home/banner-group-1.jpg"
+            src="../../assets/image/product/product-7.jpg"
             alt=""
           />
           <a class="banner__group__item-link" href="#">
@@ -16,7 +16,7 @@
         <li class="banner__group__item">
           <img
             class="banner__group__item-img"
-            src="../../assets/image/home/banner-group-2.jpg"
+            src="../../assets/image/product/product-5.jpg"
             alt=""
           />
           <a class="banner__group__item-link" href="#">
@@ -26,7 +26,7 @@
         <li class="banner__group__item">
           <img
             class="banner__group__item-img"
-            src="../../assets/image/home/banner-group-3.jpg"
+            src="../../assets/image/product/product-6.jpg"
             alt=""
           />
           <a class="banner__group__item-link" href="#">
