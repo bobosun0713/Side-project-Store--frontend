@@ -7,48 +7,91 @@
       <aside class="product__menu">
         <h1 class="product__menu-title">甜點類別</h1>
         <ul class="menu-list">
-          <li class="menu-list__item">
-            <router-link class="menu-list__item__link" to="">
-              所有甜點(48)</router-link
-            >
+          <li
+            class="menu-list__item"
+            :class="{ 'menu-list__item--active': tabName === '' }"
+            @click="changeProduct('')"
+          >
+            所有甜點({{ filterAmount() }})
           </li>
-          <li class="menu-list__item">
-            <router-link class="menu-list__item__link" to=""
-              >本日精選(10)</router-link
-            >
+          <li
+            class="menu-list__item"
+            :class="{ 'menu-list__item--active': tabName === '本日精選' }"
+            @click="changeProduct('本日精選')"
+          >
+            本日精選({{ filterAmount('本日精選') }})
           </li>
-          <li class="menu-list__item">
-            <router-link class="menu-list__item__link" to=""
-              >人氣推薦(10)</router-link
-            >
+          <li
+            class="menu-list__item"
+            :class="{ 'menu-list__item--active': tabName === '人氣推薦' }"
+            @click="changeProduct('人氣推薦')"
+          >
+            人氣推薦({{ filterAmount('人氣推薦') }})
           </li>
-          <li class="menu-list__item">
-            <router-link class="menu-list__item__link" to=""
-              >新品上市(12)</router-link
-            >
+          <li
+            class="menu-list__item"
+            :class="{ 'menu-list__item--active': tabName === '新品上市' }"
+            @click="changeProduct('新品上市')"
+          >
+            新品上市({{ filterAmount('新品上市') }})
           </li>
         </ul>
       </aside>
       <div class="product__list">
         <product-card
-          v-for="item in 6"
-          :key="item"
+          v-for="product in filterProduct"
+          :key="product.id"
+          :product="product"
           class="product-card--mb"
         ></product-card>
-        <pagination></pagination>
+        <!-- <pagination></pagination> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { collectionProduct } from '@/db'
 import ProductCard from '@/components/product/ProductCard.vue'
-import Pagination from '@/components/Pagination.vue'
+// import Pagination from '@/components/Pagination.vue'
 export default {
   name: 'Product',
   components: {
     ProductCard,
-    Pagination,
+    // Pagination,
+  },
+  data() {
+    return {
+      productDate: [],
+      tabName: '',
+    }
+  },
+  computed: {
+    // 計算各類別甜點數量
+    filterAmount() {
+      return (type) => {
+        return this.productDate.filter((product) =>
+          !type ? product : product.type === type
+        ).length
+      }
+    },
+
+    // 過濾甜點種類
+    filterProduct() {
+      return this.productDate.filter((product) =>
+        !this.tabName ? product : product.type === this.tabName
+      )
+    },
+  },
+  mounted() {
+    this.$bind('productDate', collectionProduct)
+    // 首頁連結過來時
+    this.tabName = this.$route.params.id
+  },
+  methods: {
+    changeProduct(tab) {
+      this.tabName = tab
+    },
   },
 }
 </script>
@@ -154,13 +197,15 @@ export default {
 
   &__item {
     border-bottom: 1px solid map-get($theme-colors, border);
-    &__link {
-      color: map-get($theme-colors, dark-green);
-      font-size: map-get($fontSize, large);
-      font-weight: bold;
-      text-align: center;
-      display: block;
-      padding: 16px;
+    color: map-get($theme-colors, dark-green);
+    font-size: map-get($fontSize, large);
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    padding: 16px;
+    cursor: pointer;
+    &--active {
+      background-color: map-get($theme-colors, light-green);
     }
   }
 }

@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// firebase 資料庫
+import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
+
 // 引入共用sass
 import '@/assets/scss/main.scss'
 

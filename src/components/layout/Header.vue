@@ -179,7 +179,7 @@ export default {
     // active
     &--active {
       max-height: 200px;
-      box-shadow: 0 3px 2px map-get($theme-colors, dark-green-opacity);
+      // box-shadow: 0 3px 2px map-get($theme-colors, dark-green-opacity);
     }
   }
 

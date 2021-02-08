@@ -1,17 +1,18 @@
 <template>
   <div class="product-card">
     <div class="card__header">
+      <img class="card__header__img" :src="product.image" alt="" />
       <div class="card__header__title">
-        本日精隨
+        {{ product.type }}
       </div>
-      <div class="card__header__fav">
+      <button class="card__header__fav">
         <font-awesome :icon="['far', 'heart']" class="icon"></font-awesome>
-      </div>
+      </button>
     </div>
     <div class="card__body">
       <div class="card__body__info">
-        <div class="card__body__info-name">焦糖馬卡龍</div>
-        <div class="card__body__info-price">NT$ 450</div>
+        <div class="card__body__info-name">{{ product.name }}</div>
+        <div class="card__body__info-price">NT$ {{ product.price }}</div>
       </div>
       <button type="button" class="card__body__button">加入購物車</button>
     </div>
@@ -21,6 +22,14 @@
 <script>
 export default {
   name: 'ProductCard',
+  props: {
+    product: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
 }
 </script>
 
@@ -40,33 +49,37 @@ export default {
 
 // 圖片
 .card__header {
-  background: url('../../assets/image/product/product-1.jpg') no-repeat center
-    center;
-  background-size: cover;
   width: 100%;
   height: 315px;
 
   display: flex;
   justify-content: space-between;
+  position: relative;
+
+  // img
+  &__img {
+    width: 100%;
+    object-fit: cover;
+  }
 
   // title
   &__title {
-    align-self: flex-start;
+    position: absolute;
     padding: 16px 10px;
+    left: 20px;
     background-color: map-get($theme-colors, dark-green);
     color: map-get($theme-colors, light);
     letter-spacing: 3px;
     writing-mode: tb-rl;
-    margin-left: 20px;
   }
 
   // fav
   &__fav {
-    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     width: 20px;
     height: 20px;
-    margin: 20px;
-
     .icon {
       width: 100%;
       height: 100%;

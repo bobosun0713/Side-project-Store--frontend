@@ -9,9 +9,9 @@
             src="../../assets/image/product/product-7.jpg"
             alt=""
           />
-          <a class="banner__group__item-link" href="#">
+          <div class="banner__group__item-link" @click="goProduct('本日精選')">
             本日精選
-          </a>
+          </div>
         </li>
         <li class="banner__group__item">
           <img
@@ -19,9 +19,9 @@
             src="../../assets/image/product/product-5.jpg"
             alt=""
           />
-          <a class="banner__group__item-link" href="#">
+          <div class="banner__group__item-link" @click="goProduct('人氣推薦')">
             人氣推薦
-          </a>
+          </div>
         </li>
         <li class="banner__group__item">
           <img
@@ -29,9 +29,9 @@
             src="../../assets/image/product/product-6.jpg"
             alt=""
           />
-          <a class="banner__group__item-link" href="#">
+          <div class="banner__group__item-link" @click="goProduct('新品上市')">
             新品上市
-          </a>
+          </div>
         </li>
       </ul>
     </section>
@@ -42,12 +42,17 @@
     <section class="home-slogan"></section>
     <!-- 商品 -->
     <section class="home-products">
-      <product-card v-for="item in 3" :key="item"></product-card>
+      <product-card
+        v-for="product in filterProduct"
+        :key="product.id"
+        :product="product"
+      ></product-card>
     </section>
   </div>
 </template>
 
 <script>
+import { collectionProduct } from '@/db'
 import HomeInfo from '@/components/home/HomeInfo.vue'
 import ProductCard from '@/components/product/ProductCard.vue'
 export default {
@@ -55,6 +60,31 @@ export default {
   components: {
     HomeInfo,
     ProductCard,
+  },
+  data() {
+    return {
+      productDate: [],
+    }
+  },
+  computed: {
+    filterProduct() {
+      return this.productDate.filter((product) => product.type === '本日精選')
+    },
+  },
+  mounted() {
+    this.$bind('productDate', collectionProduct).then(() => {
+      // alert('讀取完畢')
+    })
+  },
+  methods: {
+    goProduct(id) {
+      this.$router.push({
+        name: 'Product',
+        params: {
+          id: id,
+        },
+      })
+    },
   },
 }
 </script>
@@ -162,9 +192,10 @@ export default {
 
     // 連結
     &-link {
+      cursor: pointer;
       position: absolute;
       top: 0;
-      display: block;
+      // display: block;
       height: 100%;
       width: 100%;
 
