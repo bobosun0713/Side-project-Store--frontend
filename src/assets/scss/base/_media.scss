@@ -1,25 +1,30 @@
 @mixin RWD_1200 {
-    @media (max-width: 1200px) {
-        @content;
-    }
+  @media (max-width: 1200px) {
+    @content;
+  }
 }
 @mixin RWD_991 {
-    @media (max-width: 991px) {
-        @content;
-    }
+  @media (max-width: 991px) {
+    @content;
+  }
 }
 @mixin RWD_768 {
-    @media (max-width: 768px) {
-        @content;
-    }
+  @media (max-width: 768px) {
+    @content;
+  }
 }
 @mixin RWD_676 {
-    @media (max-width: 676px) {
-        @content;
-    }
+  @media (max-width: 676px) {
+    @content;
+  }
 }
 @mixin RWD_576 {
-    @media (max-width: 576px) {
-        @content;
-    }
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+@mixin RWD_499 {
+  @media (max-width: 499px) {
+    @content;
+  }
 }

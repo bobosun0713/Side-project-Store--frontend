@@ -2,7 +2,7 @@
   <div class="Shopping-cart">
     <div class="cart-list">
       <h1 class="cart-list__title">您的購物車</h1>
-      <table class="table cart__table">
+      <!-- <table class="table cart__table">
         <tr>
           <td class="table__td">
             <img
@@ -33,19 +33,19 @@
             </button>
           </td>
         </tr>
-        <tr>
-          <td class="table__td">
-            <img
-              class="table__td-img"
-              src="../assets/image/product/product-1.jpg"
-              alt=""
-            />
-          </td>
-          <td class="table__td">
-            <div class="table__td__name">焦糖馬卡龍</div>
-            <div class="table__td__price">NT$ 450</div>
-          </td>
-          <td class="table__td">
+      </table> -->
+      <div class="cart-list__container">
+        <div class="cart-item">
+          <img
+            class="cart-item__img"
+            src="../assets/image/product/product-2.jpg"
+            alt=""
+          />
+          <div class="cart-item__group">
+            <div class="cart-item__group-info">
+              <div class="cart-item__group-title">焦糖馬卡龍</div>
+              <div class="cart-item__group-price">NT$ 450</div>
+            </div>
             <div class="amount__control">
               <button class="amount__control-button">
                 -
@@ -55,15 +55,28 @@
                 +
               </button>
             </div>
-          </td>
-          <td class="table__td">NT$ 400</td>
-          <td class="table__td">
-            <button class="table__td__delete">
+          </div>
+          <!-- <div class="cart-item__group">
+            <div class="amount__control">
+              <button class="amount__control-button">
+                -
+              </button>
+              <span class="amount__control-num">1</span>
+              <button class="amount__control-button">
+                +
+              </button>
+            </div>
+          </div> -->
+          <div class="cart-item__group">
+            NT$ 900
+          </div>
+          <div class="cart-item__group">
+            <button>
               <font-awesome icon="trash-alt" class="icon "></font-awesome>
             </button>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="cart-order">
       <h2 class="cart-order__title">訂單摘要</h2>
@@ -129,6 +142,86 @@ export default {
     line-height: 65px;
     background-color: map-get($theme-colors, light-green);
     color: map-get($theme-colors, dark-green);
+  }
+
+  &__container {
+    // margin: 25px 0;
+    display: flex;
+  }
+}
+.cart-item {
+  padding: 25px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid map-get($theme-colors, border);
+  margin-bottom: 30px;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    justify-content: space-around;
+  }
+  @include RWD_576 {
+    position: relative;
+    flex-wrap: wrap;
+  }
+  @include RWD_499 {
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 315px;
+    position: relative;
+  }
+
+  &__img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+
+    // ====== RWD  ======
+    @include RWD_499 {
+      width: 150px;
+      height: 100px;
+    }
+  }
+
+  &__group {
+    &:nth-of-type(1) {
+      display: flex;
+      // ====== RWD  ======
+      @include RWD_499 {
+        flex-direction: column;
+      }
+    }
+    &-info {
+      margin-right: 50px;
+      // ====== RWD  ======
+      @include RWD_576 {
+        margin-right: 35px;
+      }
+      @include RWD_499 {
+        margin-right: 0;
+        margin-bottom: 5px;
+      }
+    }
+
+    // ====== RWD  ======
+    @include RWD_499 {
+      &:nth-of-type(2) {
+        margin: 10px 0;
+        padding: 8px 50px;
+        text-align: right;
+        width: 100%;
+        border-top: 1px solid map-get($theme-colors, border);
+        border-bottom: 1px solid map-get($theme-colors, border);
+      }
+
+      &:nth-of-type(3) {
+        position: absolute;
+        right: 10px;
+        bottom: 45px;
+      }
+    }
   }
 }
 

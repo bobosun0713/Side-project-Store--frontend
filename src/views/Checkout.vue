@@ -74,9 +74,18 @@ export default {
 .checkout {
   width: 780px;
   margin: 30px auto 60px;
-
   display: flex;
   justify-content: space-between;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  @include RWD_576 {
+    margin: 0 auto 60px;
+  }
 
   // 表單
   &-form {
@@ -84,11 +93,25 @@ export default {
     width: 460px;
     background-color: map-get($theme-colors, dark-green);
 
+    // ====== RWD  ======
+    @include RWD_991 {
+      align-self: unset;
+      margin-bottom: 30px;
+    }
+    @include RWD_576 {
+      width: 100%;
+    }
+
     &__title {
       width: 380px;
       margin: 0px auto;
       padding: 30px 0;
       color: map-get($theme-colors, light-green);
+
+      // ====== RWD  ======
+      @include RWD_576 {
+        width: 340px;
+      }
     }
 
     &__button {
@@ -105,6 +128,13 @@ export default {
   // 清單
   &-order {
     width: 300px;
+    // ====== RWD  ======
+    @include RWD_991 {
+      width: 460px;
+    }
+    @include RWD_576 {
+      width: 100%;
+    }
   }
 }
 
@@ -127,6 +157,15 @@ export default {
   &__list {
     width: 260px;
     margin: 10px auto;
+
+    // ====== RWD  ======
+    @include RWD_991 {
+      width: 420px;
+    }
+    @include RWD_576 {
+      width: 360px;
+    }
+
     &__item {
       display: flex;
       justify-content: space-between;

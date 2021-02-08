@@ -22,12 +22,21 @@ export default {
   background-size: cover;
   width: 940px;
   height: 460px;
-  margin: 0 auto 60px;
+  margin: 0 auto 65px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    width: 100%;
+  }
+  @include RWD_499 {
+    height: 520px;
+    position: relative;
+  }
 
   &__img {
     width: 190px;
@@ -47,6 +56,13 @@ export default {
     &:hover {
       background-color: map-get($theme-colors, dark-green);
       color: map-get($theme-colors, light);
+    }
+
+    @include RWD_499 {
+      // height: 520px;
+      width: 100%;
+      position: absolute;
+      bottom: -65px;
     }
   }
 }

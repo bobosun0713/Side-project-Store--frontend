@@ -36,6 +36,11 @@ export default {
   width: 380px;
   margin: 0 auto;
 
+  // ====== RWD  ======
+  @include RWD_576 {
+    width: 340px;
+  }
+
   &__list {
     display: flex;
     &:not(:last-child) {
