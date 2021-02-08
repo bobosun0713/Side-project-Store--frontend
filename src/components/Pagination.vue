@@ -24,6 +24,11 @@ export default {
 .pagination {
   display: flex;
   margin-left: auto;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    margin-left: 0;
+  }
   &__button {
     width: 60px;
     height: 60px;

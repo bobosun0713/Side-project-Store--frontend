@@ -63,6 +63,20 @@ export default {
     width: 940px;
     height: 496px;
 
+    transition: all 0.5s;
+    // ====== RWD  ======
+    @include RWD_991 {
+      margin: 0 auto;
+      width: 100%;
+      height: 400px;
+    }
+    @include RWD_768 {
+      height: 350px;
+    }
+    @include RWD_576 {
+      height: 280px;
+    }
+
     &__slogan {
       background: url('../assets/image/home/home-slogan.svg') no-repeat center
         center;
@@ -71,6 +85,20 @@ export default {
       height: 330px;
       float: right;
       margin: 40px;
+
+      transition: all 0.5s;
+      // ====== RWD  ======
+      @include RWD_991 {
+        margin: 25px 40px;
+      }
+      @include RWD_768 {
+        width: 75px;
+        height: 280px;
+      }
+      @include RWD_576 {
+        width: 60px;
+        height: 220px;
+      }
     }
   }
 
@@ -79,11 +107,22 @@ export default {
     margin: 0 auto 60px;
     display: flex;
     justify-content: space-between;
+
+    // ====== RWD  ======
+    @include RWD_991 {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 
   // 側邊欄
   &__menu {
     width: 300px;
+    // ====== RWD  ======
+    @include RWD_991 {
+      width: 100%;
+      margin-bottom: 30px;
+    }
 
     // 標題
     &-title {
@@ -100,6 +139,12 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    // ====== RWD  ======
+    @include RWD_991 {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }
 

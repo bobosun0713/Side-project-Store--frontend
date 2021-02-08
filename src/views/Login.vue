@@ -69,10 +69,19 @@ export default {
   justify-content: center;
   text-align: center;
 
+  // ====== RWD  ======
+  @include RWD_576 {
+    margin: 0;
+  }
+
   // 會員登入
   &-form {
     width: 390px;
     background-color: map-get($theme-colors, dark-green);
+    // ====== RWD  ======
+    @include RWD_576 {
+      width: 100%;
+    }
 
     // 標題
     &__title {
@@ -141,6 +150,11 @@ export default {
       &:hover {
         background-color: map-get($theme-colors, light-green);
       }
+
+      // ====== RWD  ======
+      @include RWD_576 {
+        width: 100%;
+      }
     }
   }
 
@@ -149,6 +163,10 @@ export default {
     background-color: map-get($theme-colors, light-green);
     width: 390px;
     align-self: center;
+    // ====== RWD  ======
+    @include RWD_768 {
+      display: none;
+    }
 
     // 標題
     &__title {

@@ -103,11 +103,25 @@ export default {
   margin: 30px auto;
   display: flex;
   justify-content: space-between;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    width: 100%;
+    flex-direction: column;
+  }
+  @include RWD_576 {
+    margin: auto;
+  }
 }
 
 // 訂單列表
 .cart-list {
   width: 620px;
+
+  // ====== RWD  ======
+  @include RWD_991 {
+    width: 100%;
+  }
 
   &__title {
     text-align: center;
@@ -124,6 +138,15 @@ export default {
   background-color: map-get($theme-colors, dark-green);
   width: 300px;
 
+  // ====== RWD  ======
+  @include RWD_991 {
+    margin: 0 auto;
+  }
+  @include RWD_576 {
+    width: 100%;
+    background-color: transparent;
+  }
+
   &__title {
     width: 260px;
     padding: 16px 0;
@@ -131,33 +154,39 @@ export default {
     border-bottom: 1px solid map-get($theme-colors, light);
     color: map-get($theme-colors, light);
     text-align: center;
+
+    // ====== RWD  ======
+    @include RWD_576 {
+      background-color: map-get($theme-colors, light-green);
+      color: map-get($theme-colors, dark-green);
+      width: 315px;
+    }
   }
 
   &__list {
     width: 260px;
     margin: 10px auto;
 
+    // ====== RWD  ======
+    @include RWD_576 {
+      width: 315px;
+    }
+
     &-item {
       display: flex;
       justify-content: space-between;
       padding: 2.5px 0;
+      color: map-get($theme-colors, light);
 
-      .list-title {
-        color: map-get($theme-colors, light);
-      }
-
-      .list-price {
-        color: map-get($theme-colors, light);
+      // ====== RWD  ======
+      @include RWD_576 {
+        color: map-get($theme-colors, dark-green);
+        width: 315px;
       }
 
       &:last-child {
         margin-top: 8px;
-        .list-title {
-          font-size: map-get($fontSize, large);
-        }
-        .list-price {
-          font-size: map-get($fontSize, large);
-        }
+        font-size: map-get($fontSize, large);
       }
     }
   }
@@ -176,8 +205,11 @@ export default {
 
 // 表單列表
 .table {
-  padding: 10px 0;
   width: 100%;
+  // ====== RWD  ======
+  @include RWD_576 {
+    margin-bottom: 30px;
+  }
 
   &__td {
     padding: 20px 10px;
@@ -187,6 +219,10 @@ export default {
     &:first-child {
       text-align: left;
       padding: 20px 0;
+      // ====== RWD  ======
+      @include RWD_991 {
+        text-align: center;
+      }
     }
 
     // 訂單圖片
