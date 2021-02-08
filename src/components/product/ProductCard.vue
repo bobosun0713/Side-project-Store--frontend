@@ -14,20 +14,45 @@
         <div class="card__body__info-name">{{ product.name }}</div>
         <div class="card__body__info-price">NT$ {{ product.price }}</div>
       </div>
-      <button type="button" class="card__body__button">加入購物車</button>
+      <button
+        type="button"
+        class="card__body__button"
+        @click="addToCart(product)"
+      >
+        加入購物車
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { collectionCart } from '@/db'
+import NotifiCation from '@/mixin/notification.js'
 export default {
   name: 'ProductCard',
+  mixins: [NotifiCation],
   props: {
     product: {
       type: Object,
       default() {
         return {}
       },
+    },
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading
+    },
+  },
+  methods: {
+    addToCart(data) {
+      // this.$store.dispatch('updateCart', data)
+      collectionCart.add({ data }).then(() => {
+        this.NotifiCation('成功', 'success', '已新增一筆至購物車')
+      })
     },
   },
 }

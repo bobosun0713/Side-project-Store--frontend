@@ -13,6 +13,9 @@ import '@/assets/scss/main.scss'
 // fontawesome
 import '@/plugin/fontawesome.js'
 
+// 引用element ui
+import '@/plugin/element.js'
+
 Vue.config.productionTip = false
 
 new Vue({
