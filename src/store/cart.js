@@ -23,9 +23,8 @@ const cart = {
           .get()
           .then((carts) => {
             let documents = carts.docs.map((doc) => {
-              let id = doc.id
               let data = doc.data()
-              return { id, ...data }
+              return { ...data }
             })
             console.log()
 
