@@ -1,22 +1,28 @@
 <template>
   <div class="cart-item">
-    <img class="cart-item__img" :src="product.image" alt="" />
+    <img class="cart-item__img" :src="test.image" alt="" />
     <div class="cart-item__group">
       <div class="cart-item__group-info">
-        <div class="cart-item__group-title">{{ product.name }}</div>
-        <div class="cart-item__group-price">NT$ {{ product.price }}</div>
+        <div class="cart-item__group-title">{{ test.name }}</div>
+        <div class="cart-item__group-price">NT$ {{ test.price }}</div>
       </div>
       <div class="amount__control">
-        <button class="amount__control-button" @click="clickAmount(-1)">
+        <button
+          class="amount__control-button"
+          @click="clickAmount(-1), testNum({ getUserInfo, product, amount })"
+        >
           -
         </button>
-        <span class="amount__control-num">{{ amount }}</span>
-        <button class="amount__control-button" @click="clickAmount(1)">
+        <span class="amount__control-num">{{ test.amount }}</span>
+        <button
+          class="amount__control-button"
+          @click="clickAmount(1), testNum({ getUserInfo, test })"
+        >
           +
         </button>
       </div>
     </div>
-    <div class="cart-item__group">NT$ {{ product.price * amount }}</div>
+    <div class="cart-item__group">NT$ {{ test.price * test.amount }}</div>
     <div class="cart-item__group">
       <button @click="deleteCart({ getUserInfo, product })">
         <font-awesome icon="trash-alt" class="icon "></font-awesome>
@@ -36,33 +42,32 @@ export default {
         return {}
       },
     },
-    index: {
-      type: Number,
-      default: 0,
-    },
   },
   data() {
     return {
       amount: 1,
+      test: {
+        ...this.product,
+      },
     }
   },
   computed: {
     ...mapGetters(['getUserInfo']),
   },
   methods: {
-    ...mapActions(['deleteCart', 'addCartTotal']),
+    ...mapActions(['deleteCart', 'addCartTotal', 'testNum']),
     clickAmount(num) {
-      let numTotal = this.amount + num
+      let numTotal = this.test.amount + num
       if (numTotal < 1) {
         this.amount = 1
-      } else if (numTotal > this.amount) {
-        this.amount = numTotal
+      } else if (numTotal > this.test.amount) {
+        this.test.amount = numTotal
       } else {
-        this.amount = numTotal
+        this.test.amount = numTotal
       }
-      let lastAmount = this.amount - 1
+      let lastAmount = this.test.amount - 1
       let allTotal =
-        this.amount * this.product.price - lastAmount * this.product.price
+        this.test.amount * this.product.price - lastAmount * this.product.price
 
       // 回傳價錢
       if (num !== 1) {

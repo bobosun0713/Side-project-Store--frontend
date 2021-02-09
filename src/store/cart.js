@@ -39,7 +39,6 @@ const cart = {
     },
 
     deleteCart({ dispatch }, data) {
-      console.log(data.product)
       collectionCart
         .doc(data.getUserInfo)
         .update({
@@ -54,6 +53,19 @@ const cart = {
 
     addCartTotal({ commit }, total) {
       commit('SET_CART_TOTAL', total)
+    },
+
+    testNum({ dispatch }, num) {
+      console.log(num)
+
+      collectionCart
+        .doc(num.getUserInfo)
+        .update({
+          products: firebase.firestore.FieldValue.arrayUnion({ ...num.test }),
+        })
+        .then(() => {
+          dispatch('getCart')
+        })
     },
   },
 }
