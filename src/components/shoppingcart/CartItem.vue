@@ -72,7 +72,8 @@ export default {
   },
   beforeDestroy() {
     // 當這筆資料被刪除時
-    this.addCartTotal(-this.amount * this.product.price)
+    console.log('離開')
+    // this.addCartTotal(-this.amount * this.product.price)
   },
 }
 </script>

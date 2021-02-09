@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import Cookies from 'js-cookie'
 import { collectionCart } from '@/db'
 import NotifiCation from '@/mixin/notification.js'
 export default {
@@ -40,7 +42,9 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      userUID: Cookies.get('UID'),
+    }
   },
   computed: {
     isLoading() {
@@ -48,10 +52,26 @@ export default {
     },
   },
   methods: {
+    // 判斷是否登入
+    checkUserInfo() {
+      if (!this.userUID) {
+        this.NotifiCation('未登入', 'error', '以跳轉至登入頁')
+        this.$router.push('/login')
+        return false
+      }
+      return true
+    },
     addToCart(data) {
-      collectionCart.add({ ...data }).then(() => {
-        this.NotifiCation('成功', 'success', '已新增一筆至購物車')
-      })
+      if (!this.checkUserInfo()) return
+
+      collectionCart
+        .doc('1')
+        .update({
+          products: firebase.firestore.FieldValue.arrayUnion(data),
+        })
+        .then(() => {
+          this.NotifiCation('成功', 'success', '已新增一筆至購物車')
+        })
     },
   },
 }

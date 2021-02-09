@@ -22,11 +22,14 @@
         </li>
         <li class="cart-order__list-item">
           <span class="list-title">運費</span>
-          <span class="list-price">NT$ 60</span>
+          <span class="list-price">NT$ {{ getFareTotal }}</span>
         </li>
         <li class="cart-order__list-item">
           <span class="list-title">總計</span>
-          <span class="list-price">NT$ {{ getCartTotal + 60 }}</span>
+          <span class="list-price"
+            >NT$
+            {{ getCartTotal === 0 ? 0 : getCartTotal + getFareTotal }}</span
+          >
         </li>
       </ul>
       <button class="cart-order__button" @click="goCheckout">結帳</button>
@@ -52,14 +55,10 @@ export default {
     getCartTotal() {
       return this.$store.state.cart.cartTotal
     },
+    getFareTotal() {
+      return this.$store.state.cart.fareTotal
+    },
   },
-  // watch: {
-  //   getCartData() {
-  //     this.getCart()
-
-  //     console.log('測試')
-  //   },
-  // },
   mounted() {
     this.getCart()
   },

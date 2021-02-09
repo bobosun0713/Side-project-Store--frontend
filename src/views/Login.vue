@@ -5,6 +5,7 @@
       <div class="login-form__item">
         <font-awesome :icon="['fas', 'user']" class="icon"></font-awesome>
         <input
+          v-model.trim="email"
           class="login-form__item-input"
           type="text"
           placeholder="電子信箱/手機號碼"
@@ -13,6 +14,7 @@
       <div class="login-form__item">
         <font-awesome :icon="['fas', 'key']" class="icon"></font-awesome>
         <input
+          v-model.trim="password"
           class="login-form__item-input"
           type="text"
           placeholder="請輸入使用者密碼"
@@ -26,7 +28,9 @@
         />
         <label for="remember" class="login-form__item-label">記住我</label>
       </div>
-      <button type="button" class="login-form__button">登入帳號</button>
+      <button type="button" class="login-form__button" @click="signIn">
+        登入帳號
+      </button>
     </form>
     <div class="login-other">
       <h2 class="login-other__title">連結社群帳號</h2>
@@ -56,8 +60,33 @@
 </template>
 
 <script>
+import { User } from '@/db'
+import { mapActions } from 'vuex'
+import MessageDialog from '@/mixin/message.js'
 export default {
   name: 'Login',
+  mixins: [MessageDialog],
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  computed: {},
+  methods: {
+    ...mapActions(['signIn']),
+    signIn() {
+      User.signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.signIn(User.currentUser.uid)
+          // this.$store.dispatch('signIn', User.currentUser.uid)
+          this.MessageDialog('success', '登入成功', false)
+        })
+        .catch(() => {
+          this.MessageDialog('error', '登入失敗，再試一次！', false)
+        })
+    },
+  },
 }
 </script>
 

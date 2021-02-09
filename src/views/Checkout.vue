@@ -13,15 +13,17 @@
         <ul class="order__list">
           <li class="order__list__item">
             <span class="order__list__item-price">小計</span>
-            <span class="order__list__item-price">NT$ 2700</span>
+            <span class="order__list__item-price">NT$ {{ getCartTotal }}</span>
           </li>
           <li class="order__list__item">
             <span class="order__list__item-price">運費</span>
-            <span class="order__list__item-price">NT$ 300</span>
+            <span class="order__list__item-price">NT$ {{ getFareTotal }}</span>
           </li>
           <li class="order__list__item">
             <span class="order__list__item-price">總計</span>
-            <span class="order__list__item-price">NT$ 2700</span>
+            <span class="order__list__item-price"
+              >NT$ {{ getCartTotal + getFareTotal }}</span
+            >
           </li>
         </ul>
       </div>
@@ -59,7 +61,14 @@ export default {
       changeForm: 'ListShip',
     }
   },
-
+  computed: {
+    getCartTotal() {
+      return this.$store.state.cart.cartTotal
+    },
+    getFareTotal() {
+      return this.$store.state.cart.fareTotal
+    },
+  },
   methods: {
     checkOutBtn() {
       if (this.changeForm === 'ListPay') {

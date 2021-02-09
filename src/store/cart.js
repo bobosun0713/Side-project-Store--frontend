@@ -2,6 +2,7 @@ import { collectionCart } from '@/db'
 const cart = {
   state: {
     cartData: [],
+    fareTotal: 50,
     cartTotal: 0,
   },
   mutations: {

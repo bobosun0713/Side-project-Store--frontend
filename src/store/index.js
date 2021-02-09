@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import member from '@/store/product'
 import product from '@/store/product'
 import cart from '@/store/cart'
 
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     global,
     product,
     cart,
+    member,
   },
 })

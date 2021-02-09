@@ -12,8 +12,9 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
+const User = firebase.auth()
 const db = firebase.firestore()
 const collectionProduct = db.collection('product')
 const collectionCart = db.collection('cart')
 
-export { collectionProduct, collectionCart }
+export { collectionProduct, collectionCart, User }
