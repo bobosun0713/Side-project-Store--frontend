@@ -59,6 +59,7 @@ export default {
       changeForm: 'ListShip',
     }
   },
+
   methods: {
     checkOutBtn() {
       if (this.changeForm === 'ListPay') {

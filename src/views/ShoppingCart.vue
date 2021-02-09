@@ -3,36 +3,14 @@
     <div class="cart-list">
       <h1 class="cart-list__title">您的購物車</h1>
       <div class="cart-list__container">
-        <div class="cart-item">
-          <img
-            class="cart-item__img"
-            src="../assets/image/product/product-2.jpg"
-            alt=""
-          />
-          <div class="cart-item__group">
-            <div class="cart-item__group-info">
-              <div class="cart-item__group-title">焦糖馬卡龍</div>
-              <div class="cart-item__group-price">NT$ 450</div>
-            </div>
-            <div class="amount__control">
-              <button class="amount__control-button">
-                -
-              </button>
-              <span class="amount__control-num">1</span>
-              <button class="amount__control-button">
-                +
-              </button>
-            </div>
-          </div>
-          <div class="cart-item__group">
-            NT$ 900
-          </div>
-          <div class="cart-item__group">
-            <button>
-              <font-awesome icon="trash-alt" class="icon "></font-awesome>
-            </button>
-          </div>
-        </div>
+        <template v-if="getCartData.length !== 0">
+          <cart-item
+            v-for="product in getCartData"
+            :key="product.id"
+            :product="product"
+          ></cart-item>
+        </template>
+        <h2 v-else>無商品資料</h2>
       </div>
     </div>
     <div class="cart-order">
@@ -40,15 +18,15 @@
       <ul class="cart-order__list">
         <li class="cart-order__list-item">
           <span class="list-title">小計</span>
-          <span class="list-price">NT$ 200</span>
+          <span class="list-price">NT$ {{ getCartTotal }}</span>
         </li>
         <li class="cart-order__list-item">
           <span class="list-title">運費</span>
-          <span class="list-price">NT$ 200</span>
+          <span class="list-price">NT$ 60</span>
         </li>
         <li class="cart-order__list-item">
           <span class="list-title">總計</span>
-          <span class="list-price">NT$ 200</span>
+          <span class="list-price">NT$ {{ getCartTotal + 60 }}</span>
         </li>
       </ul>
       <button class="cart-order__button" @click="goCheckout">結帳</button>
@@ -57,9 +35,36 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import CartItem from '@/components/shoppingcart/CartItem.vue'
 export default {
   name: 'ShoppingCart',
+  components: {
+    CartItem,
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    getCartData() {
+      return this.$store.state.cart.cartData
+    },
+    getCartTotal() {
+      return this.$store.state.cart.cartTotal
+    },
+  },
+  // watch: {
+  //   getCartData() {
+  //     this.getCart()
+
+  //     console.log('測試')
+  //   },
+  // },
+  mounted() {
+    this.getCart()
+  },
   methods: {
+    ...mapActions(['getCart']),
     goCheckout() {
       this.$router.push('/checkout')
     },
@@ -104,6 +109,7 @@ export default {
   &__container {
     // margin: 25px 0;
     display: flex;
+    flex-direction: column;
   }
 }
 .cart-item {

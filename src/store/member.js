@@ -1,5 +1,5 @@
-const member = {
-  state: {},
-  mutations: {},
-  actions: {},
-}
+// const member = {
+//   state: {},
+//   mutations: {},
+//   actions: {},
+// }

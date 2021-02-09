@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="isLoading" class="default">
+  <div v-loading.fullscreen.lock="isLoading" class="default">
     <default-header></default-header>
     <router-view></router-view>
     <sub-scription></sub-scription>
@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.isLoading
+      return this.$store.state.global.isLoading
     },
   },
 }

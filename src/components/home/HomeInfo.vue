@@ -141,6 +141,9 @@ export default {
   transform: translateY(-75px);
 
   // ====== RWD  ======
+  @include RWD_1200 {
+    transform: translateY(-55px);
+  }
   @include RWD_768 {
     background: url('../../assets/image/home/info-slogan-rwd-1.svg') no-repeat
       center center;
@@ -183,6 +186,9 @@ export default {
       transform: translateY(-85px);
 
       // ====== RWD  ======
+      @include RWD_1200 {
+        transform: translateY(-65px);
+      }
       @include RWD_768 {
         background: url('../../assets/image/home/info-slogan-rwd-2.svg')
           no-repeat center center;

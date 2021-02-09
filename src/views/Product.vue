@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { collectionProduct } from '@/db'
+import { mapActions } from 'vuex'
 import ProductCard from '@/components/product/ProductCard.vue'
 // import Pagination from '@/components/Pagination.vue'
 export default {
@@ -62,33 +62,36 @@ export default {
   },
   data() {
     return {
-      productDate: [],
       tabName: '',
     }
   },
   computed: {
+    // 取得Vuex資料
+    getStoreProduct() {
+      return this.$store.state.product.productData
+    },
     // 計算各類別甜點數量
     filterAmount() {
       return (type) => {
-        return this.productDate.filter((product) =>
+        return this.getStoreProduct.filter((product) =>
           !type ? product : product.type === type
         ).length
       }
     },
-
     // 過濾甜點種類
     filterProduct() {
-      return this.productDate.filter((product) =>
+      return this.getStoreProduct.filter((product) =>
         !this.tabName ? product : product.type === this.tabName
       )
     },
   },
   mounted() {
-    this.$bind('productDate', collectionProduct)
+    this.getProducts()
     // 首頁連結過來時
     this.tabName = this.$route.params.id
   },
   methods: {
+    ...mapActions(['getProducts']),
     changeProduct(tab) {
       this.tabName = tab
     },

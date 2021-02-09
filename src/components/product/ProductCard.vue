@@ -49,8 +49,7 @@ export default {
   },
   methods: {
     addToCart(data) {
-      // this.$store.dispatch('updateCart', data)
-      collectionCart.add({ data }).then(() => {
+      collectionCart.add({ ...data }).then(() => {
         this.NotifiCation('成功', 'success', '已新增一筆至購物車')
       })
     },

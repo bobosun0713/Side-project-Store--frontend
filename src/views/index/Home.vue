@@ -43,7 +43,7 @@
     <!-- 商品 -->
     <section class="home-products">
       <product-card
-        v-for="product in filterProduct"
+        v-for="product in filterTodayProduct"
         :key="product.id"
         :product="product"
       ></product-card>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { collectionProduct } from '@/db'
+import { mapActions } from 'vuex'
 import HomeInfo from '@/components/home/HomeInfo.vue'
 import ProductCard from '@/components/product/ProductCard.vue'
 export default {
@@ -63,21 +63,20 @@ export default {
   },
 
   data() {
-    return {
-      productDate: [],
-    }
+    return {}
   },
   computed: {
-    filterProduct() {
-      return this.productDate.filter((product) => product.type === '本日精選')
+    filterTodayProduct() {
+      return this.$store.state.product.productData.filter(
+        (item) => item.type === '本日精選'
+      )
     },
   },
   mounted() {
-    this.$bind('productDate', collectionProduct).then(() => {
-      // alert('讀取完畢')
-    })
+    this.getProducts()
   },
   methods: {
+    ...mapActions(['getProducts']),
     goProduct(id) {
       this.$router.push({
         name: 'Product',

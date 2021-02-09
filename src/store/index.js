@@ -1,26 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { collectionCart } from '@/db'
+import product from '@/store/product'
+import cart from '@/store/cart'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+// 全域loading
+const global = {
   state: {
     isLoading: false,
-    productDate: [],
   },
   mutations: {
-    UPDATE_LOADING(state, loading) {
+    SET_LOADING(state, loading) {
       state.isLoading = loading
     },
   },
   actions: {
-    updateCart({ commit }, data) {
-      commit('UPDATE_LOADING', true)
-      collectionCart.add({ data }).then(() => {
-        commit('UPDATE_LOADING', false)
-      })
+    updateLoading({ commit }, loading) {
+      commit('SET_LOADING', loading)
     },
+  },
+}
+
+export default new Vuex.Store({
+  modules: {
+    global,
+    product,
+    cart,
   },
 })
