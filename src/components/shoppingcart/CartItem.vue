@@ -18,7 +18,7 @@
     </div>
     <div class="cart-item__group">NT$ {{ product.price * amount }}</div>
     <div class="cart-item__group">
-      <button @click="deleteCart(product.id)">
+      <button @click="deleteCart({ getUserInfo, product })">
         <font-awesome icon="trash-alt" class="icon "></font-awesome>
       </button>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CartItem',
   props: {
@@ -36,11 +36,18 @@ export default {
         return {}
       },
     },
+    index: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       amount: 1,
     }
+  },
+  computed: {
+    ...mapGetters(['getUserInfo']),
   },
   methods: {
     ...mapActions(['deleteCart', 'addCartTotal']),

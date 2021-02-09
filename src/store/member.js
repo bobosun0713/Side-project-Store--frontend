@@ -3,20 +3,24 @@ const member = {
   state: {
     userUID: '',
   },
+  getters: {
+    getUserInfo(state) {
+      return !state.userUID ? Cookies.get('UID') : state.userUID
+    },
+  },
   mutations: {
     SET_USER_INFO(state, UID) {
-      state.userUID = UID
-      Cookies.set('UID', state.userUID)
+      Cookies.set('UID', UID)
+      state.userUID = Cookies.get('UID')
     },
     REMOVE_USER_INFO(state) {
-      state.userUID = ''
       Cookies.remove('UID')
+      state.userUID = ''
     },
   },
   actions: {
     // 登入
     signIn({ commit }, UID) {
-      alert('1')
       commit('SET_USER_INFO', UID)
     },
     // 登出

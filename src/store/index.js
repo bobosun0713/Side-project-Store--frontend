@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import member from '@/store/product'
+import member from '@/store/member'
 import product from '@/store/product'
 import cart from '@/store/cart'
 

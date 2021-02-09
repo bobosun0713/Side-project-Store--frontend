@@ -16,9 +16,15 @@
         >
       </li>
       <li class="header__nav__item">
-        <router-link class="header__nav__item-link" to="/login"
+        <router-link
+          v-if="!getUserInfo"
+          class="header__nav__item-link"
+          to="/login"
           >登入</router-link
         >
+        <button v-else class="header__nav__item-link" @click="signOut">
+          登出
+        </button>
       </li>
       <li class="header__nav__item">
         <router-link class="header__nav__item-link" to="/shopping">
@@ -34,16 +40,39 @@
 </template>
 
 <script>
+import { User } from '@/db'
+import { mapGetters } from 'vuex'
+import MessageDialog from '@/mixin/message.js'
 export default {
   name: 'Header',
+  mixins: [MessageDialog],
   data() {
     return {
       isToggleMenu: false,
     }
   },
+  computed: {
+    ...mapGetters(['getUserInfo']),
+  },
   methods: {
     toggleMenu() {
       this.isToggleMenu = !this.isToggleMenu
+    },
+    signOut() {
+      this.$confirm(`確定登出?`, '登出', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          User.signOut().then(() => {
+            this.$store.dispatch('signOut')
+            this.MessageDialog('success', '已登出', false)
+          })
+        })
+        .catch(() => {
+          this.MessageDialog('warning', '已取消登出', false)
+        })
     },
   },
 }

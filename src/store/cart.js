@@ -1,4 +1,6 @@
 import { collectionCart } from '@/db'
+import firebase from 'firebase'
+
 const cart = {
   state: {
     cartData: [],
@@ -25,6 +27,8 @@ const cart = {
               let data = doc.data()
               return { id, ...data }
             })
+            console.log()
+
             commit('SET_CART_DATA', documents)
             dispatch('updateLoading', false)
             resolve()
@@ -35,17 +39,18 @@ const cart = {
       })
     },
 
-    deleteCart({ dispatch }, id) {
+    deleteCart({ dispatch }, data) {
+      console.log(data.product)
       collectionCart
-        .doc(id)
-        .delete()
+        .doc(data.getUserInfo)
+        .update({
+          products: firebase.firestore.FieldValue.arrayRemove({
+            ...data.product,
+          }),
+        })
         .then(() => {
           dispatch('getCart')
         })
-    },
-
-    addToCart(data) {
-      collectionCart.add({ data })
     },
 
     addCartTotal({ commit }, total) {

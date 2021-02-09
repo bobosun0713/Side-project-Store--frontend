@@ -5,9 +5,10 @@
       <div class="cart-list__container">
         <template v-if="getCartData.length !== 0">
           <cart-item
-            v-for="product in getCartData"
-            :key="product.id"
+            v-for="(product, idx) in getCartData[0].products"
+            :key="product.name"
             :product="product"
+            :index="idx"
           ></cart-item>
         </template>
         <h2 v-else>無商品資料</h2>

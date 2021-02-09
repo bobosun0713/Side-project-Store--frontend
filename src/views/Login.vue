@@ -16,7 +16,7 @@
         <input
           v-model.trim="password"
           class="login-form__item-input"
-          type="text"
+          type="password"
           placeholder="請輸入使用者密碼"
         />
       </div>
@@ -61,7 +61,6 @@
 
 <script>
 import { User } from '@/db'
-import { mapActions } from 'vuex'
 import MessageDialog from '@/mixin/message.js'
 export default {
   name: 'Login',
@@ -74,13 +73,12 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions(['signIn']),
     signIn() {
       User.signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.signIn(User.currentUser.uid)
-          // this.$store.dispatch('signIn', User.currentUser.uid)
+          this.$store.dispatch('signIn', User.currentUser.uid)
           this.MessageDialog('success', '登入成功', false)
+          this.$router.push('/')
         })
         .catch(() => {
           this.MessageDialog('error', '登入失敗，再試一次！', false)

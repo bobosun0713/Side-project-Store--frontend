@@ -14,11 +14,7 @@
         <div class="card__body__info-name">{{ product.name }}</div>
         <div class="card__body__info-price">NT$ {{ product.price }}</div>
       </div>
-      <button
-        type="button"
-        class="card__body__button"
-        @click="addToCart(product)"
-      >
+      <button type="button" class="card__body__button" @click="addToCart">
         加入購物車
       </button>
     </div>
@@ -27,8 +23,8 @@
 
 <script>
 import firebase from 'firebase'
-import Cookies from 'js-cookie'
 import { collectionCart } from '@/db'
+import { mapGetters } from 'vuex'
 import NotifiCation from '@/mixin/notification.js'
 export default {
   name: 'ProductCard',
@@ -43,10 +39,16 @@ export default {
   },
   data() {
     return {
-      userUID: Cookies.get('UID'),
+      productData: {
+        name: this.product.name,
+        price: this.product.price,
+        image: this.product.image,
+        amount: 1,
+      },
     }
   },
   computed: {
+    ...mapGetters(['getUserInfo']),
     isLoading() {
       return this.$store.state.isLoading
     },
@@ -54,20 +56,20 @@ export default {
   methods: {
     // 判斷是否登入
     checkUserInfo() {
-      if (!this.userUID) {
+      if (!this.getUserInfo) {
         this.NotifiCation('未登入', 'error', '以跳轉至登入頁')
         this.$router.push('/login')
         return false
       }
       return true
     },
-    addToCart(data) {
+    addToCart() {
       if (!this.checkUserInfo()) return
 
       collectionCart
-        .doc('1')
+        .doc(this.getUserInfo)
         .update({
-          products: firebase.firestore.FieldValue.arrayUnion(data),
+          products: firebase.firestore.FieldValue.arrayUnion(this.productData),
         })
         .then(() => {
           this.NotifiCation('成功', 'success', '已新增一筆至購物車')
