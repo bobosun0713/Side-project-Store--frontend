@@ -1,18 +1,32 @@
 import { collectionCart } from '@/db'
 import firebase from 'firebase'
+import Cookies from 'js-cookie'
 
 const cart = {
   state: {
     cartData: [],
     fareTotal: 50,
-    cartTotal: 0,
+    isAddLoading: false,
+  },
+  getters: {
+    getCartTotal(state) {
+      let num = 0
+      state.cartData.map((val) => {
+        num += val.quantity * val.price
+      })
+      return num
+    },
+    getCartList(state) {
+      return state.cartData.map((item) => item)
+    },
   },
   mutations: {
     SET_CART_DATA(state, data) {
       state.cartData = data
     },
-    SET_CART_TOTAL(state, total) {
-      state.cartTotal += total
+
+    UPDATE_ADD_LOADING(state, loading) {
+      state.isAddLoading = loading
     },
   },
   actions: {
@@ -20,15 +34,17 @@ const cart = {
       dispatch('updateLoading', true)
       return new Promise((resolve, reject) => {
         collectionCart
+          .doc(Cookies.get('UID'))
           .get()
           .then((carts) => {
-            let documents = carts.docs.map((doc) => {
-              let data = doc.data()
-              return { ...data }
-            })
-            console.log()
+            // let documents = carts.map((doc) => {
+            //   let data = doc.data()
+            //   console.log(data)
+            //   // return { ...data }
+            // })
+            console.log(carts.data().products)
 
-            commit('SET_CART_DATA', documents)
+            commit('SET_CART_DATA', carts.data().products)
             dispatch('updateLoading', false)
             resolve()
           })
@@ -51,20 +67,27 @@ const cart = {
         })
     },
 
-    addCartTotal({ commit }, total) {
-      commit('SET_CART_TOTAL', total)
-    },
-
-    testNum({ dispatch }, num) {
-      console.log(num)
-
+    addCartQuantity({ commit, dispatch }, num) {
+      commit('UPDATE_ADD_LOADING', true)
       collectionCart
         .doc(num.getUserInfo)
         .update({
-          products: firebase.firestore.FieldValue.arrayUnion({ ...num.test }),
+          products: firebase.firestore.FieldValue.arrayRemove({
+            ...num.product,
+          }),
         })
         .then(() => {
-          dispatch('getCart')
+          collectionCart
+            .doc(num.getUserInfo)
+            .update({
+              products: firebase.firestore.FieldValue.arrayUnion({
+                ...num.cartProduct,
+              }),
+            })
+            .then(() => {
+              dispatch('getCart')
+              commit('UPDATE_ADD_LOADING', false)
+            })
         })
     },
   },

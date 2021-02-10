@@ -67,6 +67,7 @@ export default {
         .then(() => {
           User.signOut().then(() => {
             this.$store.dispatch('signOut')
+            this.$router.go(0)
             this.MessageDialog('success', '已登出', false)
           })
         })

@@ -5,7 +5,7 @@
       <div class="cart-list__container">
         <template v-if="getCartData.length !== 0">
           <cart-item
-            v-for="(product, idx) in getCartData[0].products"
+            v-for="(product, idx) in getCartData"
             :key="product.name"
             :product="product"
             :index="idx"
@@ -39,22 +39,22 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import NotifiCation from '@/mixin/notification.js'
 import CartItem from '@/components/shoppingcart/CartItem.vue'
 export default {
   name: 'ShoppingCart',
   components: {
     CartItem,
   },
+  mixins: [NotifiCation],
   data() {
     return {}
   },
   computed: {
+    ...mapGetters(['getCartTotal']),
     getCartData() {
       return this.$store.state.cart.cartData
-    },
-    getCartTotal() {
-      return this.$store.state.cart.cartTotal
     },
     getFareTotal() {
       return this.$store.state.cart.fareTotal
@@ -66,6 +66,10 @@ export default {
   methods: {
     ...mapActions(['getCart']),
     goCheckout() {
+      if (!this.getCartData.length) {
+        this.NotifiCation('失敗', 'error', '目前購物車沒有商品！')
+        return
+      }
       this.$router.push('/checkout')
     },
   },

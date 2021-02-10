@@ -30,15 +30,17 @@
       <div class="order">
         <h2 class="order__title">購物清單</h2>
         <ul class="order__list">
-          <li class="order__list__item">
-            <img
-              src="../assets/image/product/product-1.jpg"
-              alt=""
-              class="order__list__item-img"
-            />
+          <li
+            v-for="order in cartData"
+            :key="order.name"
+            class="order__list__item"
+          >
+            <img :src="order.image" alt="" class="order__list__item-img" />
             <div class="order__list__item-product">
-              <p class="product-name">焦糖馬卡龍</p>
-              <p class="product-price">NT$ 900</p>
+              <p class="product-name">{{ order.name }}</p>
+              <p class="product-price">
+                NT$ {{ order.price * order.quantity }}
+              </p>
             </div>
           </li>
         </ul>
@@ -48,6 +50,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import ListPay from '@/components/checkout/ListPay.vue'
 import ListShip from '@/components/checkout/ListShip.vue'
 export default {
@@ -59,12 +63,11 @@ export default {
   data() {
     return {
       changeForm: 'ListShip',
+      cartData: this.$store.state.cart.cartData,
     }
   },
   computed: {
-    getCartTotal() {
-      return this.$store.state.cart.cartTotal
-    },
+    ...mapGetters(['getCartTotal']),
     getFareTotal() {
       return this.$store.state.cart.fareTotal
     },

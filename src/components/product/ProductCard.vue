@@ -43,15 +43,12 @@ export default {
         name: this.product.name,
         price: this.product.price,
         image: this.product.image,
-        amount: 1,
+        quantity: 1,
       },
     }
   },
   computed: {
-    ...mapGetters(['getUserInfo']),
-    isLoading() {
-      return this.$store.state.isLoading
-    },
+    ...mapGetters(['getUserInfo', 'getCartList']),
   },
   methods: {
     // 判斷是否登入

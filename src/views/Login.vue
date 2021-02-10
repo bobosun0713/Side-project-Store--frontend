@@ -71,7 +71,6 @@ export default {
       password: '',
     }
   },
-  computed: {},
   methods: {
     signIn() {
       User.signInWithEmailAndPassword(this.email, this.password)

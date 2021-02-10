@@ -1,28 +1,38 @@
 <template>
   <div class="cart-item">
-    <img class="cart-item__img" :src="test.image" alt="" />
+    <img class="cart-item__img" :src="cartProduct.image" alt="" />
     <div class="cart-item__group">
       <div class="cart-item__group-info">
-        <div class="cart-item__group-title">{{ test.name }}</div>
-        <div class="cart-item__group-price">NT$ {{ test.price }}</div>
+        <div class="cart-item__group-title">{{ cartProduct.name }}</div>
+        <div class="cart-item__group-price">NT$ {{ cartProduct.price }}</div>
       </div>
       <div class="amount__control">
         <button
           class="amount__control-button"
-          @click="clickAmount(-1), testNum({ getUserInfo, product, amount })"
+          :disabled="isAddLoading"
+          @click="
+            clickAmount(-1),
+              addCartQuantity({ getUserInfo, cartProduct, product })
+          "
         >
           -
         </button>
-        <span class="amount__control-num">{{ test.amount }}</span>
+        <span class="amount__control-num">{{ cartProduct.quantity }}</span>
         <button
           class="amount__control-button"
-          @click="clickAmount(1), testNum({ getUserInfo, test })"
+          :disabled="isAddLoading"
+          @click="
+            clickAmount(1),
+              addCartQuantity({ getUserInfo, cartProduct, product })
+          "
         >
           +
         </button>
       </div>
     </div>
-    <div class="cart-item__group">NT$ {{ test.price * test.amount }}</div>
+    <div class="cart-item__group">
+      NT$ {{ cartProduct.price * cartProduct.quantity }}
+    </div>
     <div class="cart-item__group">
       <button @click="deleteCart({ getUserInfo, product })">
         <font-awesome icon="trash-alt" class="icon "></font-awesome>
@@ -45,47 +55,35 @@ export default {
   },
   data() {
     return {
-      amount: 1,
-      test: {
+      quantity: 1,
+      cartProduct: {
         ...this.product,
       },
     }
   },
   computed: {
     ...mapGetters(['getUserInfo']),
+    isAddLoading() {
+      return this.$store.state.cart.isAddLoading
+    },
   },
   methods: {
-    ...mapActions(['deleteCart', 'addCartTotal', 'testNum']),
+    ...mapActions(['deleteCart', 'addCartTotal', 'addCartQuantity']),
     clickAmount(num) {
-      let numTotal = this.test.amount + num
+      let numTotal = this.cartProduct.quantity + num
       if (numTotal < 1) {
-        this.amount = 1
-      } else if (numTotal > this.test.amount) {
-        this.test.amount = numTotal
+        this.quantity = 1
+      } else if (numTotal > this.cartProduct.quantity) {
+        this.cartProduct.quantity = numTotal
       } else {
-        this.test.amount = numTotal
-      }
-      let lastAmount = this.test.amount - 1
-      let allTotal =
-        this.test.amount * this.product.price - lastAmount * this.product.price
-
-      // 回傳價錢
-      if (num !== 1) {
-        if (numTotal === 0) return
-        this.addCartTotal(-allTotal)
-      } else {
-        this.addCartTotal(allTotal)
+        this.cartProduct.quantity = numTotal
       }
     },
   },
-  mounted() {
-    // 初始值
-    this.addCartTotal(this.amount * this.product.price)
-  },
+
   beforeDestroy() {
     // 當這筆資料被刪除時
     console.log('離開')
-    // this.addCartTotal(-this.amount * this.product.price)
   },
 }
 </script>
