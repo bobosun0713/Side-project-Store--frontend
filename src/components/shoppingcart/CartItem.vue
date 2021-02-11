@@ -1,27 +1,29 @@
 <template>
   <div class="cart-item">
-    <img class="cart-item__img" :src="cartProduct.image" alt="" />
+    <img class="cart-item__img" :src="product.image" alt="" />
     <div class="cart-item__group">
       <div class="cart-item__group-info">
-        <div class="cart-item__group-title">{{ cartProduct.name }}</div>
-        <div class="cart-item__group-price">NT$ {{ cartProduct.price }}</div>
+        <div class="cart-item__group-title">{{ product.name }}</div>
+        <div class="cart-item__group-price">NT$ {{ product.price }}</div>
       </div>
       <div class="amount__control">
         <button
           class="amount__control-button"
           :disabled="isAddLoading"
           @click="
-            clickAmount(-1), test({ getUserInfo, cartProduct, product, index })
+            clickAmount(-1),
+              addCartQuantity({ getUserInfo, cartProduct, product })
           "
         >
           -
         </button>
-        <span class="amount__control-num">{{ cartProduct.quantity }}</span>
+        <span class="amount__control-num">{{ product.quantity }}</span>
         <button
           class="amount__control-button"
           :disabled="isAddLoading"
           @click="
-            clickAmount(1), test({ getUserInfo, cartProduct, product, index })
+            clickAmount(1),
+              addCartQuantity({ getUserInfo, cartProduct, product })
           "
         >
           +
@@ -29,7 +31,7 @@
       </div>
     </div>
     <div class="cart-item__group">
-      NT$ {{ cartProduct.price * cartProduct.quantity }}
+      NT$ {{ product.price * product.quantity }}
     </div>
     <div class="cart-item__group">
       <button @click="deleteCart({ getUserInfo, product })">
@@ -50,14 +52,9 @@ export default {
         return {}
       },
     },
-    index: {
-      type: Number,
-      default: 0,
-    },
   },
   data() {
     return {
-      quantity: 1,
       cartProduct: {
         ...this.product,
       },
@@ -70,13 +67,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'deleteCart',
-      'addCartTotal',
-      'addCartQuantity',
-      'test',
-      'testdelete',
-    ]),
+    ...mapActions(['deleteCart', 'addCartTotal', 'addCartQuantity']),
     clickAmount(num) {
       let numTotal = this.cartProduct.quantity + num
       if (numTotal < 1) {
@@ -87,11 +78,6 @@ export default {
         this.cartProduct.quantity = numTotal
       }
     },
-  },
-
-  beforeDestroy() {
-    // 當這筆資料被刪除時
-    console.log('離開')
   },
 }
 </script>

@@ -59,11 +59,10 @@ export default {
     },
   },
   mounted() {
-    this.testGetCart()
     this.getCart()
   },
   methods: {
-    ...mapActions(['getCart', 'testGetCart']),
+    ...mapActions(['getCart']),
     goCheckout() {
       if (!this.getCartList.length) {
         this.NotifiCation('錯誤', 'error', '目前購物車沒有商品！')

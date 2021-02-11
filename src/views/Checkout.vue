@@ -19,7 +19,7 @@
             <span class="order__list__item-price">運費</span>
             <span class="order__list__item-price">NT$ {{ getFareTotal }}</span>
           </li>
-          <li class="order__list__item">
+          <li class="order__list__item order__list__item--font-large">
             <span class="order__list__item-price">總計</span>
             <span class="order__list__item-price"
               >NT$ {{ getCartTotal + getFareTotal }}</span
@@ -28,8 +28,8 @@
         </ul>
       </div>
       <div class="order">
-        <h2 class="order__title">購物清單</h2>
-        <ul class="order__list">
+        <h2 class="order__title">購物清單({{ getCartList.length }})</h2>
+        <ul class="order__list order__list-product">
           <li
             v-for="order in cartData"
             :key="order.name"
@@ -37,7 +37,7 @@
           >
             <img :src="order.image" alt="" class="order__list__item-img" />
             <div class="order__list__item-product">
-              <p class="product-name">{{ order.name }}</p>
+              <p class="product-name">{{ order.name }}({{ order.quantity }})</p>
               <p class="product-price">
                 NT$ {{ order.price * order.quantity }}
               </p>
@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getCartTotal']),
+    ...mapGetters(['getCartTotal', 'getCartList']),
     getFareTotal() {
       return this.$store.state.cart.fareTotal
     },
@@ -170,13 +170,18 @@ export default {
   &__list {
     width: 260px;
     margin: 10px auto;
-
     // ====== RWD  ======
     @include RWD_991 {
       width: 420px;
     }
     @include RWD_576 {
       width: 360px;
+    }
+
+    // 購物清單
+    &-product {
+      height: 270px;
+      overflow-y: scroll;
     }
 
     &__item {
@@ -197,7 +202,7 @@ export default {
         font-size: map-get($fontSize, medium);
       }
     }
-    &__item:last-child {
+    &__item--font-large {
       font-size: map-get($fontSize, large);
       font-weight: bold;
     }

@@ -69,12 +69,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getCart', 'testGetCart']),
+    ...mapActions(['getCart']),
     // 加入購物車
     addToCart() {
       if (!this.checkUserInfo()) return
       if (!this.checkCartList()) return
-      // this.getCart()
+      this.getCart()
+
       // collectionCart
       //   .doc(this.getUserInfo)
       //   .update({
@@ -84,7 +85,6 @@ export default {
       //     this.NotifiCation('成功', 'success', '已新增一筆至購物車')
       //   })
 
-      this.testGetCart()
       let docId = `${this.getUserInfo}/products/${this.productId}`
       this.productData.id = this.productId
       collectionCart
@@ -110,7 +110,7 @@ export default {
     // 判斷否登入
     checkCartList() {
       if (this.CartList) {
-        this.NotifiCation('新增失敗', 'warning', '購物車已有這筆資料')
+        this.NotifiCation('提醒', 'warning', '購物車已有這筆資料')
         return false
       }
       return true

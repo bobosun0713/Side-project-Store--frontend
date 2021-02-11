@@ -117,7 +117,8 @@ export default {
       }
       @include RWD_768 {
         margin-right: 0;
-        margin-bottom: 20px;
+        margin-top: 10px;
+        order: 2;
       }
     }
 
