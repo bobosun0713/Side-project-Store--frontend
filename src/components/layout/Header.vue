@@ -7,10 +7,10 @@
     <h1 class="header__logo"></h1>
 
     <ul class="header__nav" :class="{ 'header__nav--active': isToggleMenu }">
-      <li class="header__nav__item">
+      <li class="header__nav__item" @click="toggleMenu">
         <router-link class="header__nav__item-link" to="/">首頁</router-link>
       </li>
-      <li class="header__nav__item">
+      <li class="header__nav__item" @click="toggleMenu">
         <router-link class="header__nav__item-link" to="/product"
           >甜點</router-link
         >
@@ -26,7 +26,7 @@
           登出
         </button>
       </li>
-      <li class="header__nav__item">
+      <li class="header__nav__item" @click="toggleMenu">
         <router-link class="header__nav__item-link" to="/shopping">
           <font-awesome icon="shopping-cart" class="icon "></font-awesome
         ></router-link>

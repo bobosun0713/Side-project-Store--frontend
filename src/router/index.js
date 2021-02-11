@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 // page
 import Default from '../views/Default.vue'
-import Home from '../views/index/Home.vue'
+import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import Login from '../views/Login.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
@@ -45,7 +45,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
+  // document.title = to.meta.title
   let User = Cookies.get('UID')
   if (to.meta.requiresAuth) {
     if (!User) {
