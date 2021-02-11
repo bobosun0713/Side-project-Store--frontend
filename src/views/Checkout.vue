@@ -180,7 +180,7 @@ export default {
 
     // 購物清單
     &-product {
-      height: 270px;
+      max-height: 270px;
       overflow-y: scroll;
     }
 

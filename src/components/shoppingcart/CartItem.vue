@@ -149,8 +149,8 @@ export default {
     @include RWD_499 {
       &:nth-of-type(2) {
         margin: 10px 0;
-        padding: 8px 50px;
-        text-align: right;
+        padding: 8px;
+        text-align: center;
         width: 100%;
         border-top: 1px solid map-get($theme-colors, border);
         border-bottom: 1px solid map-get($theme-colors, border);
@@ -158,7 +158,7 @@ export default {
 
       &:nth-of-type(3) {
         position: absolute;
-        right: -70px;
+        left: 0x;
         bottom: 45px;
       }
     }

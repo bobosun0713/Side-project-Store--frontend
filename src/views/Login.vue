@@ -67,8 +67,8 @@ export default {
   mixins: [MessageDialog],
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'admin@gmail.com',
+      password: 'admin1234',
     }
   },
   methods: {
