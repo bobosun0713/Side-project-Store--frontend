@@ -7,10 +7,10 @@
     <h1 class="header__logo"></h1>
 
     <ul class="header__nav" :class="{ 'header__nav--active': isToggleMenu }">
-      <li class="header__nav__item" @click="toggleMenu">
+      <li class="header__nav__item">
         <router-link class="header__nav__item-link" to="/">首頁</router-link>
       </li>
-      <li class="header__nav__item" @click="toggleMenu">
+      <li class="header__nav__item">
         <router-link class="header__nav__item-link" to="/product"
           >甜點</router-link
         >
@@ -22,11 +22,11 @@
           to="/login"
           >登入</router-link
         >
-        <button v-else class="header__nav__item-link" @click="signOut">
+        <a v-else class="header__nav__item-link" @click="signOut">
           登出
-        </button>
+        </a>
       </li>
-      <li class="header__nav__item" @click="toggleMenu">
+      <li class="header__nav__item">
         <router-link class="header__nav__item-link" to="/shopping">
           <font-awesome icon="shopping-cart" class="icon "></font-awesome
         ></router-link>
@@ -54,6 +54,12 @@ export default {
   computed: {
     ...mapGetters(['getUserInfo']),
   },
+  watch: {
+    $route() {
+      this.isToggleMenu = false
+      window.scrollTo(0, 0)
+    },
+  },
   methods: {
     toggleMenu() {
       this.isToggleMenu = !this.isToggleMenu
@@ -68,7 +74,7 @@ export default {
           User.signOut().then(() => {
             this.$store.dispatch('signOut')
             this.$router.go(0)
-            this.MessageDialog('success', '已登出', false)
+            // this.MessageDialog('success', '已登出', false)
           })
         })
         .catch(() => {
@@ -191,6 +197,7 @@ export default {
         color: map-get($theme-colors, dark-green);
         font-size: map-get($fontSize, medium);
         font-weight: bold;
+        display: block;
 
         &:hover {
           color: map-get($theme-colors, light-yellow);

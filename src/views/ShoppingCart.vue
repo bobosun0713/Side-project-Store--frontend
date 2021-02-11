@@ -11,7 +11,7 @@
             :index="idx"
           ></cart-item>
         </template>
-        <h2 v-else>無商品資料</h2>
+        <h2 v-else class="cart-list__container-else">無商品資料</h2>
       </div>
     </div>
     <div class="cart-order">
@@ -91,29 +91,34 @@ export default {
   }
 }
 
-// 數量加減
-.amount__control {
-  display: inline-block;
-  border: 1px solid map-get($theme-colors, border);
+// 訂單列表
+.cart-list {
+  width: 620px;
 
-  &-button {
-    cursor: pointer;
-    border: 0;
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: transparent;
+  // ====== RWD  ======
+  @include RWD_991 {
+    width: 100%;
   }
-  &-num {
-    border-left: 1px solid map-get($theme-colors, border);
-    border-right: 1px solid map-get($theme-colors, border);
-    display: inline-block;
-    vertical-align: top;
+
+  &__title {
     text-align: center;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    height: 65px;
+    line-height: 65px;
+    background-color: map-get($theme-colors, light-green);
+    color: map-get($theme-colors, dark-green);
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    // 無商品的時候
+    &-else {
+      margin: 20px 0;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid map-get($theme-colors, border);
+    }
   }
 }
 
@@ -144,7 +149,7 @@ export default {
     @include RWD_576 {
       background-color: map-get($theme-colors, light-green);
       color: map-get($theme-colors, dark-green);
-      width: 315px;
+      width: 100%;
     }
   }
 
@@ -185,6 +190,11 @@ export default {
     font-size: map-get($fontSize, large);
     font-weight: bold;
     color: map-get($theme-colors, dark-green);
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: map-get($theme-colors, light-green);
+    }
   }
 }
 </style>

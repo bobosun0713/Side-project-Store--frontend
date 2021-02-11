@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUserInfo']),
+    ...mapGetters(['getUserInfo', 'getCartList']),
     isAddLoading() {
       return this.$store.state.cart.isAddLoading
     },

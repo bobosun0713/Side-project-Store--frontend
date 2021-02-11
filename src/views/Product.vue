@@ -210,6 +210,10 @@ export default {
     &--active {
       background-color: map-get($theme-colors, light-green);
     }
+
+    &:hover {
+      background-color: map-get($theme-colors, light-green);
+    }
   }
 }
 </style>

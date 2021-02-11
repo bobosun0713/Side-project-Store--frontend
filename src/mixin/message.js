@@ -6,6 +6,7 @@ export const MessageDialog = {
         showClose: action,
         message: Meg,
         type: type,
+        offset: 130,
       })
     },
   },

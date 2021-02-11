@@ -135,6 +135,11 @@ export default {
       font-size: map-get($fontSize, large);
       font-weight: bold;
       padding: 16px;
+      transition: all 0.5s;
+
+      &:hover {
+        background-color: map-get($theme-colors, light-green);
+      }
     }
   }
 
