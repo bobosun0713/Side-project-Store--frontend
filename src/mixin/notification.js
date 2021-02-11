@@ -7,6 +7,7 @@ export const NotifiCation = {
         type: type,
         message: Meg,
         showClose: true,
+        offset: 80,
       })
     },
   },
