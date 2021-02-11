@@ -3,9 +3,9 @@
     <div class="cart-list">
       <h1 class="cart-list__title">您的購物車</h1>
       <div class="cart-list__container">
-        <template v-if="getCartData.length !== 0">
+        <template v-if="getCartList.length !== 0">
           <cart-item
-            v-for="(product, idx) in getCartData"
+            v-for="(product, idx) in getCartList"
             :key="product.name"
             :product="product"
             :index="idx"
@@ -52,22 +52,21 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['getCartTotal']),
-    getCartData() {
-      return this.$store.state.cart.cartData
-    },
+    ...mapGetters(['getCartTotal', 'getCartList']),
+
     getFareTotal() {
       return this.$store.state.cart.fareTotal
     },
   },
   mounted() {
+    this.testGetCart()
     this.getCart()
   },
   methods: {
-    ...mapActions(['getCart']),
+    ...mapActions(['getCart', 'testGetCart']),
     goCheckout() {
-      if (!this.getCartData.length) {
-        this.NotifiCation('失敗', 'error', '目前購物車沒有商品！')
+      if (!this.getCartList.length) {
+        this.NotifiCation('錯誤', 'error', '目前購物車沒有商品！')
         return
       }
       this.$router.push('/checkout')

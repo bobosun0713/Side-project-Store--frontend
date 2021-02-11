@@ -6,7 +6,16 @@
         {{ product.type }}
       </div>
       <button class="card__header__fav">
-        <font-awesome :icon="['far', 'heart']" class="icon"></font-awesome>
+        <font-awesome
+          v-if="checkCartList"
+          :icon="['far', 'heart']"
+          class="icon"
+        ></font-awesome>
+        <font-awesome
+          v-else
+          :icon="['fas', 'heart']"
+          class="icon"
+        ></font-awesome>
       </button>
     </div>
     <div class="card__body">
@@ -22,9 +31,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import { collectionCart } from '@/db'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import NotifiCation from '@/mixin/notification.js'
 export default {
   name: 'ProductCard',
@@ -39,7 +48,9 @@ export default {
   },
   data() {
     return {
+      productId: +new Date(),
       productData: {
+        id: '',
         name: this.product.name,
         price: this.product.price,
         image: this.product.image,
@@ -47,10 +58,45 @@ export default {
       },
     }
   },
+
   computed: {
     ...mapGetters(['getUserInfo', 'getCartList']),
+
+    CartList() {
+      return this.getCartList.filter(
+        (item) => item.name === this.productData.name
+      ).length
+    },
   },
   methods: {
+    ...mapActions(['getCart', 'testGetCart']),
+    // 加入購物車
+    addToCart() {
+      if (!this.checkUserInfo()) return
+      if (!this.checkCartList()) return
+      // this.getCart()
+      // collectionCart
+      //   .doc(this.getUserInfo)
+      //   .update({
+      //     products: firebase.firestore.FieldValue.arrayUnion(this.productData),
+      //   })
+      //   .then(() => {
+      //     this.NotifiCation('成功', 'success', '已新增一筆至購物車')
+      //   })
+
+      this.testGetCart()
+      let docId = `${this.getUserInfo}/products/${this.productId}`
+      this.productData.id = this.productId
+      collectionCart
+        .doc(docId)
+        .set({
+          ...this.productData,
+        })
+        .then(() => {
+          this.NotifiCation('成功', 'success', '已新增一筆至購物車')
+        })
+    },
+
     // 判斷是否登入
     checkUserInfo() {
       if (!this.getUserInfo) {
@@ -60,17 +106,14 @@ export default {
       }
       return true
     },
-    addToCart() {
-      if (!this.checkUserInfo()) return
 
-      collectionCart
-        .doc(this.getUserInfo)
-        .update({
-          products: firebase.firestore.FieldValue.arrayUnion(this.productData),
-        })
-        .then(() => {
-          this.NotifiCation('成功', 'success', '已新增一筆至購物車')
-        })
+    // 判斷否登入
+    checkCartList() {
+      if (this.CartList) {
+        this.NotifiCation('新增失敗', 'warning', '購物車已有這筆資料')
+        return false
+      }
+      return true
     },
   },
 }

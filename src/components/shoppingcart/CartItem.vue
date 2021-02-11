@@ -11,8 +11,7 @@
           class="amount__control-button"
           :disabled="isAddLoading"
           @click="
-            clickAmount(-1),
-              addCartQuantity({ getUserInfo, cartProduct, product })
+            clickAmount(-1), test({ getUserInfo, cartProduct, product, index })
           "
         >
           -
@@ -22,8 +21,7 @@
           class="amount__control-button"
           :disabled="isAddLoading"
           @click="
-            clickAmount(1),
-              addCartQuantity({ getUserInfo, cartProduct, product })
+            clickAmount(1), test({ getUserInfo, cartProduct, product, index })
           "
         >
           +
@@ -52,6 +50,10 @@ export default {
         return {}
       },
     },
+    index: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -68,7 +70,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['deleteCart', 'addCartTotal', 'addCartQuantity']),
+    ...mapActions([
+      'deleteCart',
+      'addCartTotal',
+      'addCartQuantity',
+      'test',
+      'testdelete',
+    ]),
     clickAmount(num) {
       let numTotal = this.cartProduct.quantity + num
       if (numTotal < 1) {

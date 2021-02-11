@@ -18,7 +18,7 @@ const product = {
           .get()
           .then((products) => {
             let documents = products.docs.map((doc) => doc.data())
-            console.log(documents)
+            // console.log(documents)
             commit('SET_PRODUCT_DATA', documents)
             dispatch('updateLoading', false)
             resolve()
