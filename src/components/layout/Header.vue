@@ -22,7 +22,12 @@
           to="/login"
           >登入</router-link
         >
-        <a v-else class="header__nav__item-link" @click="signOut">
+        <a
+          v-else
+          href="javascript:;"
+          class="header__nav__item-link"
+          @click="signOut"
+        >
           登出
         </a>
       </li>
@@ -66,6 +71,7 @@ export default {
     },
     signOut() {
       this.$confirm(`確定登出?`, '登出', {
+        customClass: 'message-logout',
         confirmButtonText: '確定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -78,7 +84,7 @@ export default {
           })
         })
         .catch(() => {
-          this.MessageDialog('warning', '已取消登出', false)
+          this.MessageDialog('warning', '已取消登出', true)
         })
     },
   },
@@ -167,8 +173,8 @@ export default {
   // menu
   &__nav {
     display: flex;
-
     transition: all 0.5s;
+
     // ====== RWD  ======
     @include RWD_768 {
       overflow: hidden;
@@ -216,7 +222,7 @@ export default {
     // active
     &--active {
       max-height: 200px;
-      // box-shadow: 0 3px 2px map-get($theme-colors, dark-green-opacity);
+      border-bottom: 1px solid map-get($theme-colors, border);
     }
   }
 
@@ -228,5 +234,9 @@ export default {
       display: block;
     }
   }
+}
+
+.message-logout {
+  width: 300px !important;
 }
 </style>
