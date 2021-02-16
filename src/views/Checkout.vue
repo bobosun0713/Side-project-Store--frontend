@@ -1,7 +1,9 @@
 <template>
   <div class="checkout">
     <div class="checkout-form">
-      <h1 class="checkout-form__title">運送</h1>
+      <h1 class="checkout-form__title">
+        {{ changeForm === 'ListShip' ? '運送' : '付款' }}
+      </h1>
       <component :is="changeForm"></component>
       <button class="checkout-form__button" @click="checkOutBtn">
         {{ changeForm === 'ListShip' ? '下一步' : '結帳' }}

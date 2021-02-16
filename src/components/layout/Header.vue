@@ -4,7 +4,7 @@
       <div class="header__hamburger-line"></div>
     </button>
 
-    <h1 class="header__logo"></h1>
+    <h1 class="header__logo" @click="goHome"></h1>
 
     <ul class="header__nav" :class="{ 'header__nav--active': isToggleMenu }">
       <li class="header__nav__item">
@@ -87,6 +87,10 @@ export default {
           this.MessageDialog('warning', '已取消登出', true)
         })
     },
+
+    goHome() {
+      this.$router.push('/')
+    },
   },
 }
 </script>
@@ -160,6 +164,7 @@ export default {
     background: url('../../assets/image/logo.svg') no-repeat center center;
     width: 220px;
     height: 40px;
+    cursor: pointer;
 
     transition: all 0.5s;
     // ====== RWD  ======
