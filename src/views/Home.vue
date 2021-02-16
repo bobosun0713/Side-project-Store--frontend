@@ -195,6 +195,7 @@ export default {
       cursor: pointer;
       position: absolute;
       top: 0;
+      left: 0;
       // display: block;
       height: 100%;
       width: 100%;
